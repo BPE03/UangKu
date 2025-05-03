@@ -42,6 +42,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.isDigitsOnly
 import com.kuliahppb.uangku.ui.theme.UangKuTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kuliahppb.uangku.model.CashNote
@@ -139,14 +140,14 @@ fun UangKuApp(viewModel: CashNoteViewModel = viewModel()) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            if (inputMoney.isNotBlank() && noteDescription.isNotBlank()) {
+            if (inputMoney.isNotBlank() && inputMoney.isDigitsOnly() && noteDescription.isNotBlank()) {
                 viewModel.addNote(
                     inputMoney, selectedOption, noteDescription
                 )
                 inputMoney = ""
                 noteDescription = ""
             } else {
-                Toast.makeText(context, "Pastikan Jumlah Uang / Deskripsi tidak kosong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Pastikan Jumlah Uang / Deskripsi tidak kosong dan Jumlah Uang berisi angka", Toast.LENGTH_SHORT).show()
             }
 
         }) {
